@@ -1,0 +1,9 @@
+{
+  "name": "Mobile Floating Reply Button",
+  "about_url": "",
+  "authors": "merefield@gmail.com",
+  "component": true,
+  "modifiers": {
+    "svg_icons": ["fa-reply"]
+  }
+}
