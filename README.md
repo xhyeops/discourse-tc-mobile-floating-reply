@@ -1,2 +1,2 @@
-# discourse-tc-topic-nav-buttons
-Adds a floating reply button on Topics. 
+# discourse-tc-mobile-floating-reply
+Adds a floating reply button on Topics on mobile
