@@ -8,7 +8,7 @@ export default {
         actions: {
           jumpToPost(params) {
             if (params > 0) {
-              this._jumpToPostNumber(postNumber);
+              this._jumpToPostNumber(params);
             } else {
               this.send("replyToPost");
             }
