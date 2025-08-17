@@ -5,10 +5,20 @@ export default {
 
   initialize() {
     withPluginApi("0.8.32", (api) => {
-      // registra o componente no outlet desejado
-      api.registerPluginOutlet('after-post-buttons', 'mobile-topic-floating-reply');
+      // injeta o componente MobileTopicFloatingReply após cada post
+      api.decorateWidget('post:after', (helper) => {
+        const topicController = helper.getModel();
 
-      // mantém jumpToPost
+        // só exibe para usuário logado e mobile
+        if (topicController.currentUser && topicController.site.mobileView) {
+          return helper.h('MobileTopicFloatingReply', {
+            jumpToPostNumber: topicController.jumpToPostNumber,
+            replyToPost: topicController.replyToPost,
+          });
+        }
+      });
+
+      // mantém jumpToPost no controller de tópico
       api.modifyClass("controller:topic", {
         actions: {
           jumpToPost(params) {
