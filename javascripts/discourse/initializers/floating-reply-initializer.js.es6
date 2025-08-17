@@ -5,14 +5,13 @@ export default {
 
   initialize() {
     withPluginApi("0.8.32", (api) => {
-      api.decorateWidget('post-contents:after', (helper) => {
+
+      api.attachComponent('post-controls:after', 'MobileTopicFloatingReply', (helper) => {
         const topicController = helper.getModel();
-        if (topicController.currentUser && topicController.site.mobileView) {
-          return helper.h('MobileTopicFloatingReply', {
-            jumpToPostNumber: topicController.jumpToPostNumber,
-            replyToPost: topicController.replyToPost,
-          });
-        }
+        return {
+          jumpToPostNumber: topicController.jumpToPostNumber,
+          replyToPost: topicController.replyToPost,
+        };
       });
 
       api.modifyClass("controller:topic", {
@@ -27,6 +26,7 @@ export default {
           },
         },
       });
+
     });
   },
 };
