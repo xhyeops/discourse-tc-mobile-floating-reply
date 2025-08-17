@@ -4,17 +4,19 @@ export default {
   name: "mobile-topic-floating-reply-edits",
 
   initialize() {
-    withPluginApi("0.9.0", (api) => {
-      // Anexa o Glimmer Component ao outlet 'post-controls:after'
-      api.attachComponent('post-controls:after', 'MobileTopicFloatingReply', (helper) => {
+    withPluginApi("0.8.32", (api) => {
+      // Adiciona o botão ao final de cada post (mobile)
+      api.decorateCooked(($elem, helper) => {
         const topicController = helper.getModel();
-        return {
-          jumpToPostNumber: topicController.jumpToPostNumber,
-          replyToPost: topicController.replyToPost,
-        };
+        if (topicController.currentUser && topicController.site.mobileView) {
+          $elem.append(helper.h('MobileTopicFloatingReply', {
+            jumpToPostNumber: topicController.jumpToPostNumber,
+            replyToPost: topicController.replyToPost,
+          }));
+        }
       });
 
-      // Mantém a ação jumpToPost no controller de tópico
+      // Mantém jumpToPost
       api.modifyClass("controller:topic", {
         pluginId: "mobile-floating-reply",
         actions: {
