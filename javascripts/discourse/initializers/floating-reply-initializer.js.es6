@@ -5,15 +5,16 @@ export default {
 
   initialize() {
     withPluginApi("0.8.32", (api) => {
-      // injeta o componente MobileTopicFloatingReply após cada post
-      api.decorateCooked(($elem, helper) => {
+      api.decorateWidget('post-contents:after', (helper) => {
         const topicController = helper.getModel();
         if (topicController.currentUser && topicController.site.mobileView) {
-          $elem.append('<MobileTopicFloatingReply />');
+          return helper.h('MobileTopicFloatingReply', {
+            jumpToPostNumber: topicController.jumpToPostNumber,
+            replyToPost: topicController.replyToPost,
+          });
         }
       });
 
-      // mantém jumpToPost no controller de tópico
       api.modifyClass("controller:topic", {
         pluginId: "mobile-floating-reply",
         actions: {
