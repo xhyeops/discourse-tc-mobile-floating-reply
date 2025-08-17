@@ -1,0 +1,9 @@
+{{#if this.showButton}}
+  <span class="mobile-topic-floating-reply-widget">
+    <button 
+      {{on "click" this.floatingReply}} 
+      class="mobile-topic-floating-reply popup-menu-btn">
+      <i class="fa fa-reply"></i> {{t "reply"}}
+    </button>
+  </span>
+{{/if}}
